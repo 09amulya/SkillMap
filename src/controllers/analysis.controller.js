@@ -1,7 +1,9 @@
 import Analysis from "../models/Analysis.js";
 import analyzeResume from "../utils/analyzeResume.js";
-import pdf from "pdf-parse";
+import { createRequire } from "module";
 
+const require = createRequire(import.meta.url);
+const pdf = require("pdf-parse");
 export const analyzeResumeController = async (req, res) => {
   try {
     const { userId, jobDescription } = req.body;

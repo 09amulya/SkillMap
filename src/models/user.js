@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    // 🔹 BASIC DETAILS
     name: {
       type: String,
       required: true,
@@ -22,23 +23,42 @@ const userSchema = new mongoose.Schema(
       minlength: 6
     },
 
+    // 🔹 CAREER INFO
     domain: {
       type: String,
       required: true,
       enum: ["tech", "non-tech", "arts"]
     },
 
-    role: {
+    targetRole: {
       type: String,
       required: true
     },
 
-    skills: {
-      type: [String],
+    experienceLevel: {
+      type: String,
+      enum: ["student", "beginner", "intermediate"],
+      default: "student"
+    },
+
+    // 🔥 CORE INPUT FROM USER
+    knownSkills: {
+      type: [String], // what user already knows
       default: []
     },
 
+    learningGoals: {
+      type: [String], // what user wants to learn
+      default: []
+    },
+
+    // 🔥 SYSTEM GENERATED (NOT during signup)
     skillScore: {
+      type: Number,
+      default: 0
+    },
+
+    jobReadinessScore: {
       type: Number,
       default: 0
     },
