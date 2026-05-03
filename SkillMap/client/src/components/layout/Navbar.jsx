@@ -1,6 +1,7 @@
+import { useNavigate } from "react-router-dom";
 // components/navbar/Navbar.jsx
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 
 const Navbar = () => {
    const [open, setOpen] = useState(false);
@@ -30,6 +31,8 @@ const Navbar = () => {
     { label: "04/roadmap", path: "/roadmap" },
   ];
 
+
+
   return (
     <nav className="flex items-center justify-between px-10 py-4 bg-[#1a2540] border-b-[3px] border-[#b8860b] shadow-lg sticky top-0 z-50">
 
@@ -55,6 +58,16 @@ const Navbar = () => {
           {step.label}
         </div>
       ))}
+      {/* ✅ RESUME BUTTON */}
+        <div className="flex items-center gap-2 px-3 py-1 text-xs tracking-widest text-white/30">
+          <div className="w-2 h-2 rounded-full bg-white/30" />
+          <button
+            onClick={() => navigate("/resume")}
+            className="hover:text-[#f0d878] transition"
+          >
+            05/resume guide
+          </button>
+        </div>
     </div>
 
       {/* 👤 Profile Section */}
@@ -95,6 +108,8 @@ const Navbar = () => {
 
           </div>
         )}
+        
+
       </div>
 
 

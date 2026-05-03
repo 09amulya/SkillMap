@@ -13,6 +13,10 @@ import LandingPage from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import SkillGateawayHero from "./pages/Skillgateaway";
+import Consultation from "./pages/Consultation";
+import Profile from "./pages/Profile";
+import Resume from "./pages/Resume";
+import Counselling from "./pages/Counselling";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -43,6 +47,11 @@ function App() {
 
           {/* Landing Page (for "I Know Something") */}
           <Route path="/landing" element={<LandingPage />} />
+          <Route path="/counselling" element={<Counselling/>} />
+
+          {/* Consultation */}
+          <Route path="/consultation" element={<Consultation />} />
+
 
           {/* Onboarding (for beginners) */}
           <Route
@@ -53,6 +62,7 @@ function App() {
           {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile/>} />
 
         {/* Protected Routes */}
         <Route
@@ -84,7 +94,7 @@ function App() {
           ) : (
             <Navigate to="/" />
           )} />
-
+        <Route path="/resume" element={<Resume/>} />
       </Routes>
     </Layout></>
   );
