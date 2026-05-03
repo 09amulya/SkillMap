@@ -66,7 +66,7 @@ export default function Signup() {
 
   const labelStyle = {
     display: "block",
-    fontSize: "10px",
+    fontSize: "12px",
     letterSpacing: "0.2em",
     textTransform: "uppercase",
     color: "#c9a84c",
@@ -117,7 +117,7 @@ export default function Signup() {
         {/* Dark card — matches your nav + cards */}
         <div
           className="rounded-2xl p-8 sm:p-10 shadow-2xl"
-          style={{ background: "#1a1f2e" }}
+          style={{ background: "#1a2540" }}
         >
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -211,16 +211,7 @@ export default function Signup() {
                 />
               </div>
 
-              {/* Learning Goals — full width */}
-              <div className="sm:col-span-2">
-                <label style={labelStyle}>Learning Goals</label>
-                <input
-                  name="learningGoals" type="text" placeholder="e.g. System Design, DSA  (comma-separated)"
-                  value={form.learningGoals} onChange={handleChange}
-                  onFocus={() => setFocused("learningGoals")} onBlur={() => setFocused(null)}
-                  className={inputBase} style={inputStyle("learningGoals")}
-                />
-              </div>
+             
             </div>
 
             {/* Divider */}
