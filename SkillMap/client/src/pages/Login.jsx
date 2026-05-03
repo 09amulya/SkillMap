@@ -51,7 +51,7 @@ export default function Login() {
 
   const labelStyle = {
     display: "block",
-    fontSize: "10px",
+    fontSize: "12px",
     letterSpacing: "0.2em",
     textTransform: "uppercase",
     color: "#c9a84c",
@@ -101,8 +101,8 @@ export default function Login() {
 
         {/* Dark card — identical to Signup card */}
         <div
-          className="rounded-2xl p-8 sm:p-10 shadow-2xl"
-          style={{ background: "#1a1f2e" }}
+          className="rounded-2xl p-8 bg-[#1a2540] sm:p-10 shadow-2xl"
+          // style={{ background: "#1a2540" }}
         >
           {/* Small brand mark inside card */}
           <div className="flex items-center justify-center gap-2 mb-8">
@@ -111,7 +111,7 @@ export default function Login() {
               className="text-xs tracking-widest px-3 text-white"
               style={{ color: "white", fontFamily: "Georgia, serif" }}
             >
-              SKILLMAP AI
+              SKILLMAP
             </span>
             <div className="h-px flex-1" style={{ background: "#2e3650" }} />
           </div>
@@ -134,7 +134,7 @@ export default function Login() {
                 <label style={{ ...labelStyle, marginBottom: 0 }}>Password</label>
                 <button
                   type="button"
-                  className="text-[10px] tracking-wider transition-colors duration-150"
+                  className="text-[12px] tracking-wider transition-colors duration-150"
                   style={{ color: "#c9a84c" }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "#f0e8df")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "#c9a84c")}
