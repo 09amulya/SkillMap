@@ -18,7 +18,7 @@ app.use(express.json());
 
 // ✅ THEN routes
 app.use("/api", analysisRoutes);
-app.use("/api/auth", authRoutes);
+
 
 // Test route
 app.get("/", (req, res) => {
