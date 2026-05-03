@@ -101,8 +101,8 @@ export default function Login() {
 
         {/* Dark card — identical to Signup card */}
         <div
-          className="rounded-2xl p-8 sm:p-10 shadow-2xl"
-          style={{ background: "#1a2540" }}
+          className="rounded-2xl p-8 bg-[#1a2540] sm:p-10 shadow-2xl"
+          // style={{ background: "#1a2540" }}
         >
           {/* Small brand mark inside card */}
           <div className="flex items-center justify-center gap-2 mb-8">

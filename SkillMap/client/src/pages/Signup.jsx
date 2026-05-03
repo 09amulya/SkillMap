@@ -116,15 +116,15 @@ export default function Signup() {
 
         {/* Dark card — matches your nav + cards */}
         <div
-          className="rounded-2xl p-8 sm:p-10 shadow-2xl"
-          style={{ background: "#1a2540" }}
+          className="rounded-2xl p-8 bg-[#1a2540] sm:p-10 shadow-2xl"
+          //style={{ background: "#1a2540" }}
         >
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
               {/* Name */}
               <div>
-                <label style={labelStyle}>Full Name</label>
+                <label style={labelStyle}>Full Name<span className="text-red-500">*</span></label>
                 <input
                   name="name" type="text" placeholder="Your full name"
                   value={form.name} onChange={handleChange}
@@ -135,7 +135,7 @@ export default function Signup() {
 
               {/* Email */}
               <div>
-                <label style={labelStyle}>Email Address</label>
+                <label style={labelStyle}>Email Address<span className="text-red-500">*</span></label>
                 <input
                   name="email" type="email" placeholder="you@email.com"
                   value={form.email} onChange={handleChange}
@@ -146,7 +146,7 @@ export default function Signup() {
 
               {/* Password — full width */}
               <div className="sm:col-span-2">
-                <label style={labelStyle}>Password</label>
+                <label style={labelStyle}>Password<span className="text-red-500">*</span></label>
                 <input
                   name="password" type="password" placeholder="Min. 8 characters"
                   value={form.password} onChange={handleChange}
@@ -174,7 +174,7 @@ export default function Signup() {
 
               {/* Experience Level */}
               <div>
-                <label style={labelStyle}>Experience Level</label>
+                <label style={labelStyle}>Experience Level<span className="text-red-500">*</span></label>
                 <select
                   name="experienceLevel" value={form.experienceLevel} onChange={handleChange}
                   onFocus={() => setFocused("experienceLevel")} onBlur={() => setFocused(null)}
@@ -191,25 +191,26 @@ export default function Signup() {
 
               {/* Target Role — full width */}
               <div className="sm:col-span-2">
-                <label style={labelStyle}>Target Role</label>
-                <input
-                  name="targetRole" type="text" placeholder="e.g. Frontend Developer, UX Designer"
-                  value={form.targetRole} onChange={handleChange}
-                  onFocus={() => setFocused("targetRole")} onBlur={() => setFocused(null)}
-                  className={inputBase} style={inputStyle("targetRole")} required
-                />
+                <label style={labelStyle}>Target Role<span className="text-red-500">*</span></label>
+
+                <select
+                  name="targetRole"
+                  value={form.targetRole}
+                  onChange={handleChange}
+                  onFocus={() => setFocused("targetRole")}
+                  onBlur={() => setFocused(null)}
+                  className={inputBase}
+                  style={inputStyle("targetRole")}
+                  required
+                >
+                  <option value="">Select your target role</option>
+                  <option value="Web Developer">Web Developer</option>
+                  <option value="Data Analyst">Data Analyst</option>
+                  <option value="Graphic Designer">Graphic Designer</option>
+                  <option value="ML Engineer">ML Engineer</option>
+                </select>
               </div>
 
-              {/* Known Skills — full width */}
-              <div className="sm:col-span-2">
-                <label style={labelStyle}>Known Skills</label>
-                <input
-                  name="knownSkills" type="text" placeholder="e.g. React, Figma, Python  (comma-separated)"
-                  value={form.knownSkills} onChange={handleChange}
-                  onFocus={() => setFocused("knownSkills")} onBlur={() => setFocused(null)}
-                  className={inputBase} style={inputStyle("knownSkills")}
-                />
-              </div>
 
              
             </div>

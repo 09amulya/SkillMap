@@ -12,6 +12,7 @@ import Roadmap from "./pages/Roadmap";
 import LandingPage from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Consultation from "./pages/Consultation";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -79,6 +80,8 @@ function App() {
           ) : (
             <Navigate to="/" />
           )} />
+
+        <Route path="/consultation" element={<Consultation />} />
 
       </Routes>
     </Layout></>
