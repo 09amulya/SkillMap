@@ -221,7 +221,7 @@ return (
                 onClick={() => {
                   setStep(0);
                   setAnswers([]);
-                }}
+                }}Z
                 className="border px-5 py-2 rounded-xl"
               >
                 Restart
