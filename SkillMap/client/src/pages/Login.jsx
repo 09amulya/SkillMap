@@ -12,11 +12,12 @@ export default function Login() {
   e.preventDefault();
 
   try {
-    const res = await fetch("http://localhost:5000/api/auth/login", {
+    const res = await fetch("https://skillmap-ysyo.onrender.com/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: "include",
       body: JSON.stringify({
         email: form.email,
         password: form.password
@@ -60,12 +61,12 @@ export default function Login() {
 
   return (
      <div
-  className="min-h-screen flex items-center justify-center px-4 py-16 text-[#2b1a12]"
-  style={{
-  backgroundColor: "#fde68a", // same warm yellow
-  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E")`,
-}}
->
+        className="min-h-screen flex items-center justify-center px-4 py-16 text-[#2b1a12]"
+        style={{
+        backgroundColor: "#fde68a", // same warm yellow
+        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E")`,
+      }}
+      >
       {/* Ambient glow blobs — same as Signup for visual continuity */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div
