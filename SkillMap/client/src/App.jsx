@@ -17,6 +17,7 @@ import Consultation from "./pages/Consultation";
 import Profile from "./pages/Profile";
 import Resume from "./pages/Resume";
 import Counselling from "./pages/Counselling";
+import TechConsultation from "./pages/TechConsultation";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -51,7 +52,7 @@ function App() {
 
           {/* Consultation */}
           <Route path="/consultation" element={<Consultation />} />
-
+          <Route path="/tech-consultation" element={<TechConsultation/>} />
 
           {/* Onboarding (for beginners) */}
           <Route
