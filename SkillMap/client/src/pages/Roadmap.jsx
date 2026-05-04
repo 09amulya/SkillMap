@@ -109,6 +109,13 @@ export default function Roadmap({ role, userSkills }) {
             Consult Mentor →
           </button>      
         </div>
+        <div className="text-[0.65rem] text-[#7a6a4f] mt-3">
+          <button
+          onClick={() => navigate("/Simulation")}
+          className="px-6 py-2 bg-red-500 text-white rounded-md font-semibold text-xl">
+            Job Simulation
+          </button>      
+        </div>
     </div>
   );
 }

@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 import Resume from "./pages/Resume";
 import Counselling from "./pages/Counselling";
 import TechConsultation from "./pages/TechConsultation";
+import Simulation from "./pages/Simulation";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -96,6 +97,7 @@ function App() {
             <Navigate to="/" />
           )} />
         <Route path="/resume" element={<Resume/>} />
+        <Route path="/simulation" element={<Simulation/>} />
       </Routes>
     </Layout></>
   );

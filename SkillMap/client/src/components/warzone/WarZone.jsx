@@ -1,5 +1,8 @@
 import { useState } from "react";
 import LevelSelector from "./LevelSelector";
+import CSSLab from "./CSSLab";
+import JavaScriptLab from "./JavaScriptLab";
+import ProjectLab from "./ProjectLab";
 
 const LABS = [
   {
@@ -7,12 +10,10 @@ const LABS = [
     name: "HTML",
     tagline: "Structure the web",
     description: "Master tags, attributes, and document structure",
-    icon: "⟨/⟩",
+    icon: "< />",
     color: "#ff6a00",
     levels: 3,
     xpMax: 1750,
-    status: "ACTIVE",
-    locked: false,
   },
   {
     id: "css",
@@ -21,10 +22,8 @@ const LABS = [
     description: "Selectors, flexbox, grid, animations",
     icon: "◉",
     color: "#00c9ff",
-    levels: 5,
+    levels: 3,
     xpMax: 2500,
-    status: "LOCKED",
-    locked: true,
   },
   {
     id: "js",
@@ -33,22 +32,18 @@ const LABS = [
     description: "Variables, functions, DOM manipulation",
     icon: "{ }",
     color: "#f7df1e",
-    levels: 6,
+    levels: 3,
     xpMax: 4000,
-    status: "LOCKED",
-    locked: true,
   },
   {
-    id: "react",
-    name: "React",
-    tagline: "Engineer the web",
-    description: "Components, hooks, state management",
-    icon: "⚛",
-    color: "#61dafb",
-    levels: 8,
+    id: "project",
+    name: "Projects",
+    tagline: "Build real apps",
+    description: "Landing page & portfolio projects",
+    icon: "🏗️",
+    color: "#8b5cf6",
+    levels: 2,
     xpMax: 6000,
-    status: "LOCKED",
-    locked: true,
   },
 ];
 
@@ -58,48 +53,75 @@ export default function WarZone({ onBack }) {
   const [glitching, setGlitching] = useState(false);
 
   const handleEnterLab = (lab) => {
-    if (lab.locked) return;
     setGlitching(true);
     setTimeout(() => {
       setGlitching(false);
       setSelectedSkill(lab);
-    }, 600);
+    }, 250);
   };
 
+  // 🔥 ROUTING (FINAL FIXED)
   if (selectedSkill) {
-    return <LevelSelector skill={selectedSkill} onBack={() => setSelectedSkill(null)} />;
+    const id = selectedSkill.id;
+
+    if (id === "html") {
+      return (
+        <LevelSelector
+          skill={selectedSkill}
+          onBack={() => setSelectedSkill(null)}
+        />
+      );
+    }
+
+    if (id === "css") {
+      return (
+        <Wrapper onBack={() => setSelectedSkill(null)}>
+          <CSSLab />
+        </Wrapper>
+      );
+    }
+
+    if (id === "js") {
+      return (
+        <Wrapper onBack={() => setSelectedSkill(null)}>
+          <JavaScriptLab />
+        </Wrapper>
+      );
+    }
+
+    if (id === "project") {
+      return (
+        <Wrapper onBack={() => setSelectedSkill(null)}>
+          <ProjectLab />
+        </Wrapper>
+      );
+    }
   }
 
   return (
     <div style={styles.root}>
-      {/* Animated grid background */}
       <div style={styles.gridBg} />
-
-      {/* Glitch overlay */}
       {glitching && <div style={styles.glitchOverlay} />}
 
-      {/* Header */}
+      {/* HEADER */}
       <div style={styles.header}>
-        <div style={styles.headerLeft}>
-          <button style={styles.backBtn} onClick={onBack}>← EXIT ZONE</button>
-        </div>
+        <button style={styles.backBtn} onClick={onBack}>
+          ← EXIT ZONE
+        </button>
+
         <div style={styles.titleBlock}>
           <div style={styles.warLabel}>⚔ WAR ZONE ⚔</div>
-          <div style={styles.subtitle}>SELECT YOUR COMBAT LAB</div>
+          <div style={styles.subtitle}>SELECT YOUR LAB</div>
         </div>
-        <div style={styles.headerRight}>
-          <div style={styles.liveIndicator}>
-            <span style={styles.livePulse} />
-            LIVE
-          </div>
-        </div>
+
+        <div style={styles.live}>● LIVE</div>
       </div>
 
-      {/* Stats bar */}
+      {/* STATS */}
       <div style={styles.statsBar}>
         {[
-          ["ACTIVE LABS", "1"],
-          ["LOCKED LABS", "3"],
+          ["ACTIVE LABS", "4"],
+          ["LOCKED LABS", "0"],
           ["YOUR XP", "350"],
           ["RANK", "RECRUIT"],
         ].map(([label, value]) => (
@@ -110,47 +132,67 @@ export default function WarZone({ onBack }) {
         ))}
       </div>
 
-      {/* Lab grid */}
+      {/* LAB GRID */}
       <div style={styles.labGrid}>
         {LABS.map((lab) => (
           <div
             key={lab.id}
-            style={styles.labCard(lab.locked, hoveredId === lab.id, lab.color)}
-            onMouseEnter={() => !lab.locked && setHoveredId(lab.id)}
+            style={{
+              ...styles.card,
+              borderColor: hoveredId === lab.id ? lab.color : "#222",
+              boxShadow:
+                hoveredId === lab.id
+                  ? `0 0 20px ${lab.color}55`
+                  : "none",
+              transform:
+                hoveredId === lab.id ? "translateY(-5px)" : "none",
+            }}
+            onMouseEnter={() => setHoveredId(lab.id)}
             onMouseLeave={() => setHoveredId(null)}
             onClick={() => handleEnterLab(lab)}
           >
-            {lab.locked && <div style={styles.lockOverlay}>🔒</div>}
-
-            <div style={styles.cardGlow(lab.color, !lab.locked && hoveredId === lab.id)} />
-
-            <div style={styles.labIcon(lab.color, lab.locked)}>{lab.icon}</div>
-
-            <div style={styles.statusPill(lab.locked)}>
-              {lab.status}
+            <div style={{ ...styles.icon, color: lab.color }}>
+              {lab.icon}
             </div>
 
-            <div style={styles.labName(lab.color, lab.locked)}>{lab.name}</div>
-            <div style={styles.labTagline}>{lab.tagline}</div>
-            <div style={styles.labDesc}>{lab.description}</div>
+            <div style={styles.badge}>ACTIVE</div>
 
-            <div style={styles.labMeta}>
-              <span style={styles.metaItem}>{lab.levels} LEVELS</span>
-              <span style={styles.metaItem}>{lab.xpMax} XP</span>
+            <div style={styles.name}>{lab.name}</div>
+            <div style={styles.tagline}>{lab.tagline}</div>
+            <div style={styles.desc}>{lab.description}</div>
+
+            <div style={styles.meta}>
+              {lab.levels} LEVELS • {lab.xpMax} XP
             </div>
 
-            {!lab.locked && (
-              <button style={styles.enterBtn(lab.color)}>
-                ENTER LAB →
-              </button>
-            )}
+            <button
+              style={{
+                ...styles.enterBtn,
+                borderColor: lab.color,
+                color: lab.color,
+              }}
+              onClick={(e) => {
+                e.stopPropagation(); // 🔥 prevents double click bug
+                handleEnterLab(lab);
+              }}
+            >
+              ENTER LAB →
+            </button>
           </div>
         ))}
       </div>
+    </div>
+  );
+}
 
-      <div style={styles.footer}>
-        Complete HTML Lab to unlock CSS Combat Zone
-      </div>
+// 🔥 WRAPPER (for back navigation)
+function Wrapper({ children, onBack }) {
+  return (
+    <div style={{ padding: 20, background: "#070707", minHeight: "100vh" }}>
+      <button style={styles.backBtn} onClick={onBack}>
+        ← Back
+      </button>
+      {children}
     </div>
   );
 }
@@ -159,189 +201,95 @@ const styles = {
   root: {
     minHeight: "100vh",
     background: "#070707",
-    fontFamily: "'Courier New', monospace",
     color: "#ccc",
-    position: "relative",
-    overflow: "hidden",
+    fontFamily: "monospace",
   },
+
   gridBg: {
     position: "fixed",
     inset: 0,
-    backgroundImage: `
-      linear-gradient(rgba(255,106,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,106,0,0.03) 1px, transparent 1px)
-    `,
+    backgroundImage:
+      "linear-gradient(rgba(255,106,0,0.03) 1px, transparent 1px)",
     backgroundSize: "40px 40px",
     pointerEvents: "none",
     zIndex: 0,
   },
+
   glitchOverlay: {
     position: "fixed",
     inset: 0,
     background: "rgba(255,106,0,0.08)",
-    zIndex: 999,
-    animation: "flicker 0.1s steps(1) infinite",
+    pointerEvents: "none", // 🔥 important fix
+    zIndex: 1,
   },
+
   header: {
     display: "flex",
-    alignItems: "center",
     justifyContent: "space-between",
     padding: "16px 32px",
-    background: "rgba(10,10,10,0.95)",
-    borderBottom: "2px solid #ff6a00",
-    position: "relative",
+    borderBottom: "1px solid #111",
     zIndex: 2,
+    position: "relative",
   },
-  headerLeft: {},
+
   backBtn: {
     background: "transparent",
     border: "1px solid #333",
-    color: "#888",
-    padding: "7px 16px",
+    color: "#aaa",
+    padding: "6px 12px",
     cursor: "pointer",
-    fontFamily: "'Courier New', monospace",
-    fontSize: 11,
-    letterSpacing: 1,
-    transition: "all 0.2s",
   },
+
   titleBlock: { textAlign: "center" },
-  warLabel: {
-    fontSize: 22,
-    fontWeight: 900,
-    color: "#ff6a00",
-    letterSpacing: 6,
-    textShadow: "0 0 20px rgba(255,106,0,0.5)",
-  },
-  subtitle: { fontSize: 9, color: "#555", letterSpacing: 4, marginTop: 2 },
-  headerRight: {},
-  liveIndicator: {
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-    fontSize: 10,
-    color: "#39ff85",
-    letterSpacing: 2,
-  },
-  livePulse: {
-    display: "inline-block",
-    width: 6,
-    height: 6,
-    borderRadius: "50%",
-    background: "#39ff85",
-    boxShadow: "0 0 8px #39ff85",
-  },
+  warLabel: { fontSize: 20, color: "#ff6a00" },
+  subtitle: { fontSize: 10, color: "#555" },
+  live: { color: "#39ff85", fontSize: 12 },
+
   statsBar: {
     display: "flex",
     justifyContent: "center",
     gap: 40,
-    padding: "12px 32px",
-    background: "#0a0a0a",
-    borderBottom: "1px solid #141414",
-    position: "relative",
-    zIndex: 2,
+    padding: 10,
+    borderBottom: "1px solid #111",
   },
-  stat: { display: "flex", flexDirection: "column", alignItems: "center", gap: 1 },
-  statLabel: { fontSize: 8, color: "#444", letterSpacing: 2 },
-  statValue: { fontSize: 16, color: "#ff6a00", fontWeight: 900 },
+
+  stat: { textAlign: "center" },
+  statLabel: { fontSize: 10, color: "#666" },
+  statValue: { fontSize: 16, color: "#ff6a00" },
+
   labGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
     gap: 20,
-    padding: "40px 40px",
-    maxWidth: 1200,
-    margin: "0 auto",
-    position: "relative",
-    zIndex: 2,
+    padding: 40,
   },
-  labCard: (locked, hovered, color) => ({
-    position: "relative",
+
+  card: {
     background: "#0d0d0d",
-    border: `1px solid ${hovered ? color : locked ? "#161616" : "#1e1e1e"}`,
-    padding: "28px 24px",
-    cursor: locked ? "not-allowed" : "pointer",
-    transition: "all 0.25s",
-    opacity: locked ? 0.45 : 1,
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "column",
-    gap: 8,
-    transform: hovered ? "translateY(-3px)" : "none",
-    boxShadow: hovered ? `0 12px 40px ${color}22` : "none",
-  }),
-  lockOverlay: {
-    position: "absolute",
-    top: 12,
-    right: 12,
-    fontSize: 16,
-    zIndex: 2,
-  },
-  cardGlow: (color, active) => ({
-    position: "absolute",
-    top: -40,
-    right: -40,
-    width: 120,
-    height: 120,
-    borderRadius: "50%",
-    background: active ? `${color}22` : "transparent",
-    transition: "all 0.3s",
-    pointerEvents: "none",
-  }),
-  labIcon: (color, locked) => ({
-    fontSize: 28,
-    color: locked ? "#333" : color,
-    fontWeight: 900,
-    fontFamily: "monospace",
-    textShadow: !locked ? `0 0 15px ${color}66` : "none",
-  }),
-  statusPill: (locked) => ({
-    display: "inline-block",
-    fontSize: 9,
-    letterSpacing: 2,
-    padding: "3px 10px",
-    color: locked ? "#333" : "#39ff85",
-    border: `1px solid ${locked ? "#222" : "#39ff85"}`,
-    background: locked ? "transparent" : "rgba(57,255,133,0.07)",
-    width: "fit-content",
-  }),
-  labName: (color, locked) => ({
-    fontSize: 20,
-    fontWeight: 900,
-    color: locked ? "#333" : "#fff",
-    letterSpacing: 3,
-    marginTop: 4,
-  }),
-  labTagline: { fontSize: 11, color: "#ff6a00", letterSpacing: 1 },
-  labDesc: { fontSize: 11, color: "#555", marginTop: 4, lineHeight: 1.6 },
-  labMeta: {
-    display: "flex",
-    gap: 16,
-    marginTop: 8,
-    paddingTop: 12,
-    borderTop: "1px solid #1a1a1a",
-  },
-  metaItem: { fontSize: 9, color: "#444", letterSpacing: 2 },
-  enterBtn: (color) => ({
-    marginTop: 8,
-    padding: "9px 0",
-    background: "transparent",
-    border: `1px solid ${color}`,
-    color: color,
-    fontFamily: "'Courier New', monospace",
-    fontSize: 11,
-    letterSpacing: 3,
+    border: "1px solid #222",
+    padding: 20,
     cursor: "pointer",
-    fontWeight: 700,
-    width: "100%",
-    transition: "all 0.2s",
-  }),
-  footer: {
-    textAlign: "center",
-    padding: "24px",
+    transition: "0.2s ease",
+  },
+
+  icon: { fontSize: 26 },
+
+  badge: {
     fontSize: 10,
-    color: "#2a2a2a",
-    letterSpacing: 2,
-    borderTop: "1px solid #111",
-    position: "relative",
-    zIndex: 2,
+    color: "#39ff85",
+    marginTop: 5,
+  },
+
+  name: { fontSize: 18, fontWeight: "bold" },
+  tagline: { fontSize: 12, color: "#ff6a00" },
+  desc: { fontSize: 12, color: "#777" },
+  meta: { fontSize: 10, color: "#555", marginTop: 5 },
+
+  enterBtn: {
+    marginTop: 10,
+    padding: 8,
+    background: "transparent",
+    border: "1px solid",
+    cursor: "pointer",
   },
 };
