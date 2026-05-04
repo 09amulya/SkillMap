@@ -5,8 +5,16 @@ export default function LandingPage() {
 
   const navigate = useNavigate(); // 🔥 THIS WAS MISSING OR WRONG PLACE
   const location = useLocation();
-
+  //const fromCounselling = location.state?.from === "counselling";
   const isActive = (path) => location.pathname === path;
+
+  const handleTechClick = () => {
+    if (location.state?.from === "counselling") {
+      navigate("/tech-consultation");
+    } else {
+      navigate("/login"); // or whatever your normal flow is
+    }
+  };
 
   return (
     <div className="min-h-screen text-[#1f2a44] px-8 py-12"
@@ -38,7 +46,7 @@ export default function LandingPage() {
         {/* TECH */}
         <div className="p-6 rounded-xl border bg-[#1a2546]
         hover:scale-105 hover:shadow-xl transition duration-300 cursor-pointer"
-        onClick={() => navigate("/login")}
+        onClick={handleTechClick}
         >
           <h2 className="text-xl font-semibold mb-2 text-white">Tech</h2>
           <p className="text-sm text-white">

@@ -129,7 +129,11 @@ return ROLE_INFO[best];
 
 
 };
-
+     const goToLanding = () => {
+    navigate("/landing", {
+      state: { from: "counselling" }
+    });
+  };
 const isComplete = step >= QUESTIONS.length;
 const progress = Math.round((step / QUESTIONS.length) * 100);
 
@@ -207,7 +211,7 @@ return (
 
             <div className="flex gap-3 justify-center">
               <button
-                onClick={() => navigate("/landing")}
+                onClick={goToLanding}
                 className="bg-[#1a2540] text-white px-5 py-2 rounded-xl"
               >
                 Continue
