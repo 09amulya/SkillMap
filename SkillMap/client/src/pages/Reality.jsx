@@ -9,13 +9,22 @@ import RealityMessage from "../components/reality/RealityMessage";
 import StatusBanner from "../components/reality/StatusBanner";
 
 export default function Reality({ role, userSkills }) {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // ✅ FIXED
 
   const roleData = ROLES[role];
 
+  // 🛑 Safety check (warna crash hota agar role undefined hota)
+  if (!roleData) {
+    return (
+      <div className="p-10 text-center text-red-600">
+        Invalid role selected
+      </div>
+    );
+  }
+
   // 🔹 SKILL MATCHING
   const { matched, missing } = compareSkills(
-    userSkills,
+    userSkills || [],
     roleData.skills
   );
 
@@ -44,12 +53,12 @@ export default function Reality({ role, userSkills }) {
   const status =
     score < 40 ? "not-ready" : score < 70 ? "almost" : "ready";
 
-  // 🔹 CONFIG (EXACT COLORS)
+  // 🔹 CONFIG
   const statusConfig = {
     "not-ready": {
       emoji: "🚨",
       label: "Not Ready",
-      desc: `You have ${missing.length} critical gaps to close before you're employable in this role. The system is being honest so you don't have to learn the hard way.`,
+      desc: `You have ${missing.length} critical gaps to close before you're employable in this role.`,
       colorHex: "#8b1a1a",
       bg: "rgba(139,26,26,0.07)",
       border: "rgba(139,26,26,0.22)",
@@ -57,7 +66,7 @@ export default function Reality({ role, userSkills }) {
     almost: {
       emoji: "⚡",
       label: "Almost Ready",
-      desc: `You're making progress. ${missing.length} gaps remain — some blockers.`,
+      desc: `You're making progress. ${missing.length} gaps remain.`,
       colorHex: "#b8860b",
       bg: "rgba(184,134,11,0.07)",
       border: "rgba(184,134,11,0.28)",
@@ -76,11 +85,11 @@ export default function Reality({ role, userSkills }) {
 
   // 🔹 PRIORITY SPLIT
   const highMissing = missing.filter(
-    (s) => (roleData.priorities[s] || "MEDIUM") === "HIGH"
+    (s) => (roleData.priorities?.[s] || "MEDIUM") === "HIGH"
   );
 
   const medMissing = missing.filter(
-    (s) => (roleData.priorities[s] || "MEDIUM") === "MEDIUM"
+    (s) => (roleData.priorities?.[s] || "MEDIUM") === "MEDIUM"
   );
 
   return (
@@ -131,7 +140,6 @@ export default function Reality({ role, userSkills }) {
         medMissing={medMissing}
         matched={matched.length}
       />
-
     </div>
   );
 }

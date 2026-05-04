@@ -129,11 +129,13 @@ return ROLE_INFO[best];
 
 
 };
-     const goToLanding = () => {
+
+const goToLanding = () => {
     navigate("/landing", {
       state: { from: "counselling" }
     });
   };
+
 const isComplete = step >= QUESTIONS.length;
 const progress = Math.round((step / QUESTIONS.length) * 100);
 

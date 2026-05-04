@@ -206,7 +206,7 @@ function TeamCard({ member, index }) {
 }
 
 // ─── MeetTheTeam — default export ────────────────────────────────────────────
-export default function consultation() {
+export default function Consultation() {
   return (
     <>
       <style>{`

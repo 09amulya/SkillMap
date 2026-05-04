@@ -4,25 +4,57 @@ import cors from "cors";
 import analysisRoutes from "./routes/analysis.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 
-
-
 const app = express();
 
-// ✅ Middleware FIRST
-app.use(cors({
-  origin: "http://localhost:5173", // your frontend
-  credentials: true
-}));
+/* GLOBAL MIDDLEWARE */
 
+// CORS
+app.use(
+  cors({
+    origin: "http://localhost:5173", // frontend URL
+    credentials: true,
+  })
+);
+
+// Body parser
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// ✅ THEN routes
-app.use("/api", analysisRoutes);
+// Logger (debug ke liye)
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
 
+/* ROUTES */
 
-// Test route
+// Health check
 app.get("/", (req, res) => {
   res.send("API Running 🚀");
+});
+
+// Feature routes
+app.use("/api", analysisRoutes);
+app.use("/api/auth", authRoutes);
+
+/* ERROR HANDLING*/
+
+// 404 handler (unknown routes)
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("🔥 ERROR:", err.stack);
+
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+  });
 });
 
 export default app;
