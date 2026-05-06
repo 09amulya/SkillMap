@@ -11,7 +11,10 @@ const app = express();
 // CORS
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend URL
+    origin: [
+      "https://skill-w4y9tloap-abhiragvermas-projects.vercel.app",// frontend URL
+      "http://localhost:5173"
+    ],
     credentials: true,
   })
 );
