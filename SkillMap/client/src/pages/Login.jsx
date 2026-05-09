@@ -12,30 +12,39 @@ export default function Login() {
   e.preventDefault();
 
   try {
-    const res = await fetch("https://skillmap-ysyo.onrender.com/api/auth/login", {
+  const res = await fetch(
+    "https://skillmap-ysyo.onrender.com/api/auth/login",
+    {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       credentials: "include",
       body: JSON.stringify({
         email: form.email,
-        password: form.password
-      })
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      alert("Login successful ✅");
-      localStorage.setItem("user", JSON.stringify(data.user));
-      navigate("/onboarding"); // or dashboard
-    } else {
-      alert(data.message); // shows "Invalid password ❌"
+        password: form.password,
+      }),
     }
+  );
+
+  // console.log("STATUS:", res.status); same with this it was to show that it's showing something
+
+  const text = await res.text();
+
+  //console.log("RAW RESPONSE:", text); this was to know that it's showing on the console or not 
+
+  const data = JSON.parse(text);
+
+  if (res.ok) {
+    alert("Login successful ✅");
+    localStorage.setItem("user", JSON.stringify(data.user));
+    navigate("/onboarding");
+  } else {
+    alert(data.message);
+  }
 
   } catch (error) {
-    console.error(error);
+    console.error("FULL ERROR:", error);
     alert("Server error ❌");
   }
 };
