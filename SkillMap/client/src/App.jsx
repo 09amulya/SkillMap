@@ -12,6 +12,7 @@ import Roadmap from "./pages/Roadmap";
 import LandingPage from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import SkillGateawayHero from "./pages/Skillgateaway";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -37,17 +38,21 @@ function App() {
 
       <Routes location={location} key={location.pathname}>
 
-        {/* Landing */}
-        <Route path="/" element={<LandingPage />} />
+        {/* Entry Gateway (FIRST SCREEN) */}
+          <Route path="/" element={<SkillGateawayHero />} />
 
-        {/* Onboarding */}
-        <Route
-          path="/onboarding"
-          element={<Onboarding onComplete={handleComplete} />} />
+          {/* Landing Page (for "I Know Something") */}
+          <Route path="/landing" element={<LandingPage />} />
 
-        {/* Auth */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+          {/* Onboarding (for beginners) */}
+          <Route
+            path="/onboarding"
+            element={<Onboarding onComplete={handleComplete} />}
+          />
+
+          {/* Auth */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
         {/* Protected Routes */}
         <Route

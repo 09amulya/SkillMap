@@ -37,14 +37,27 @@ export default function Roadmap({ role, userSkills }) {
       <div className="flex justify-between items-center mb-10">
         <div>
           <div className="text-[0.7rem] uppercase tracking-[0.15em] text-[#b8860b]">
-            learning roadmap generator
+            industry-aligned learning roadmap
           </div>
 
           <h2 className="font-serif text-[1.3rem] font-bold text-[#1a1a1a]">
             {missing.length} steps to {role}
           </h2>
-        </div>
 
+          {/* 🔥 NEW SOURCE LINE */}
+          <div className="text-[0.7rem] text-[#9c8b6b] mt-1">
+            Based on curated industry sources:
+            <br />
+            LinkedIn Job Roles • FreeCodeCamp • Developer Roadmaps • Mentor Insights
+          </div>
+
+          {/* 🔥 OPTIONAL BADGE */}
+          <div className="mt-2">
+            <span className="text-[0.65rem] px-2 py-1 bg-[#f6f1e5] border border-[#e5d7b8] rounded">
+              Industry Verified
+            </span>
+          </div>
+        </div>
         <div className="flex gap-2">
           <button
             onClick={() => navigate("/reality")}
@@ -185,6 +198,18 @@ export default function Roadmap({ role, userSkills }) {
         >
           Analyze Another Role →
         </button>
+
+        <div className="text-[0.65rem] text-[#7a6a4f] mt-3">
+          <button
+          onClick={() => navigate("/consultation")}
+          className="px-6 py-2 bg-[#0fba34] text-white rounded-md font-semibold text-xl">
+            Consult Mentor →
+          </button>      
+        </div>
+
+        
+
+        
       </div>
 
     </div>

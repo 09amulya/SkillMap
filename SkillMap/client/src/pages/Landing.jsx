@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function LandingPage() {
 
   const navigate = useNavigate(); // 🔥 THIS WAS MISSING OR WRONG PLACE
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="min-h-screen text-[#1f2a44] px-8 py-12"
@@ -32,7 +36,7 @@ export default function LandingPage() {
       <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
 
         {/* TECH */}
-        <div className="p-6 rounded-xl border bg-[#1a2540]
+        <div className="p-6 rounded-xl border bg-[#1a2546]
         hover:scale-105 hover:shadow-xl transition duration-300 cursor-pointer"
         onClick={() => navigate("/login")}
         >
@@ -43,7 +47,7 @@ export default function LandingPage() {
         </div>
 
         {/* DESIGN */}
-        <div className="p-6 rounded-xl border bg-[#1a2540]
+        <div className="p-6 rounded-xl border bg-[#1a2546]
         hover:scale-105 hover:shadow-xl transition duration-300 cursor-pointer"
         onClick={() => navigate("/login")}
         >
@@ -54,7 +58,7 @@ export default function LandingPage() {
         </div>
 
         {/* FINANCE */}
-        <div className="p-6 rounded-xl border bg-[#1a2540] 
+        <div className="p-6 rounded-xl border bg-[#1a2546] 
         hover:scale-105 hover:shadow-xl transition duration-300 cursor-pointer">
           <h2 className="text-xl font-semibold mb-2 text-white">Finance</h2>
           <p className="text-sm text-white">
@@ -63,7 +67,7 @@ export default function LandingPage() {
         </div>
 
         {/* OPTIONAL */}
-        <div className="p-6 rounded-xl border bg-[#1a2540]
+        <div className="p-6 rounded-xl border bg-[#1a2546]
         hover:scale-105 hover:shadow-xl transition duration-300 cursor-pointer">
           <h2 className="text-xl font-semibold mb-2 text-white">Explore</h2>
           <p className="text-sm text-white">
